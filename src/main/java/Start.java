@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Start {
     
-    public static final int SIZE = 3;
-    public static final int DOTS_TO_WIN = 3;
+    public static final int SIZE = 5;
+    public static final int DOTS_TO_WIN = 4;
     public static final char DOT_EMPTY = 'Х';
     public static final char DOT_X = 'X';
     public static final char DOT_O = 'O';
@@ -40,10 +40,6 @@ public class Start {
         System.out.println("»гра закончена");
     }
     
-    public static void setMapTest(char[][] mapMock) {
-        map = mapMock;
-    }
-    
     public static boolean checkWin(char symb) {
         
         if (isHorizontWin(symb)) {
@@ -71,8 +67,10 @@ public class Start {
             for (int j = 0; j < SIZE; j++) {
                 if (map[i][j] == symb) {
                     count++;
+                } else {
+                    count = 0;
                 }
-                if (count == SIZE) {
+                if (count == DOTS_TO_WIN) {
                     return true;
                 }
             }
@@ -86,8 +84,10 @@ public class Start {
             for (int j = 0; j < SIZE; j++) {
                 if (map[j][i] == symb) {
                     count++;
+                } else {
+                    count = 0;
                 }
-                if (count == SIZE) {
+                if (count == DOTS_TO_WIN) {
                     return true;
                 }
             }
@@ -101,8 +101,10 @@ public class Start {
         for (int i = 0; i < SIZE; i++) {
             if (map[i][i] == symb) {
                 count++;
+            } else {
+                count = 0;
             }
-            if (count == SIZE) {
+            if (count == DOTS_TO_WIN) {
                 return true;
             }
         }
@@ -115,8 +117,10 @@ public class Start {
         for (int i = 0; i < SIZE; i++) {
             if (map[i][j] == symb) {
                 count++;
+            } else {
+                count = 0;
             }
-            if (count == SIZE) {
+            if (count == DOTS_TO_WIN) {
                 return true;
             }
             j--;
@@ -155,9 +159,9 @@ public class Start {
     }
     
     public static boolean isCellValid(int x, int y) {
-        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE)
+        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
             return false;
-        if (map[y][x] == DOT_EMPTY)
+        } else if (map[y][x] == DOT_EMPTY)
             return true;
         return false;
     }
