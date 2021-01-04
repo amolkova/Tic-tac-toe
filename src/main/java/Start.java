@@ -40,23 +40,87 @@ public class Start {
         System.out.println("»гра закончена");
     }
     
+    public static void setMapTest(char[][] mapMock) {
+        map = mapMock;
+    }
+    
     public static boolean checkWin(char symb) {
-        if (map[0][0] == symb && map[0][1] == symb && map[0][2] == symb)
+        
+        if (isHorizontWin(symb)) {
             return true;
-        if (map[1][0] == symb && map[1][1] == symb && map[1][2] == symb)
+        }
+        
+        if (isVerticalWin(symb)) {
             return true;
-        if (map[2][0] == symb && map[2][1] == symb && map[2][2] == symb)
+        }
+        
+        if (isDiagonalOneWin(symb)) {
             return true;
-        if (map[0][0] == symb && map[1][0] == symb && map[2][0] == symb)
+        }
+        
+        if (isDiagonalTwoWin(symb)) {
             return true;
-        if (map[0][1] == symb && map[1][1] == symb && map[2][1] == symb)
-            return true;
-        if (map[0][2] == symb && map[1][2] == symb && map[2][2] == symb)
-            return true;
-        if (map[0][0] == symb && map[1][1] == symb && map[2][2] == symb)
-            return true;
-        if (map[2][0] == symb && map[1][1] == symb && map[0][2] == symb)
-            return true;
+        }
+        
+        return false;
+    }
+    
+    private static boolean isHorizontWin(char symb) {
+        for (int i = 0; i < SIZE; i++) {
+            int count = 0;
+            for (int j = 0; j < SIZE; j++) {
+                if (map[i][j] == symb) {
+                    count++;
+                }
+                if (count == SIZE) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private static boolean isVerticalWin(char symb) {
+        for (int i = 0; i < SIZE; i++) {
+            int count = 0;
+            for (int j = 0; j < SIZE; j++) {
+                if (map[j][i] == symb) {
+                    count++;
+                }
+                if (count == SIZE) {
+                    return true;
+                }
+            }
+        }
+        return false;
+        
+    }
+    
+    private static boolean isDiagonalOneWin(char symb) {
+        int count = 0;
+        for (int i = 0; i < SIZE; i++) {
+            if (map[i][i] == symb) {
+                count++;
+            }
+            if (count == SIZE) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private static boolean isDiagonalTwoWin(char symb) {
+        int count = 0;
+        int j = SIZE - 1;
+        for (int i = 0; i < SIZE; i++) {
+            if (map[i][j] == symb) {
+                count++;
+            }
+            if (count == SIZE) {
+                return true;
+            }
+            j--;
+        }
         return false;
     }
     
@@ -86,7 +150,7 @@ public class Start {
             System.out.println("¬ведите координаты в формате X Y");
             x = sc.nextInt() - 1;
             y = sc.nextInt() - 1;
-        } while (!isCellValid(x, y)); // while(isCellValid(x, y) == false)
+        } while (!isCellValid(x, y));
         map[y][x] = DOT_X;
     }
     
